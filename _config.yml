@@ -1,8 +1,8 @@
 # Site settings
-title: Hux Blog
-SEOTitle: 黄玄的博客 | Hux Blog
+title: Chen Anqing
+SEOTitle: 安庆的博客 
 header-img: img/home-bg.jpg
-email: huxpro@gmail.com
+email: chenanqing@163.com
 description: "既要脚踏实地，又要仰望星空 | 安庆，linuxer ，Software Engineer | 这里是 @安庆 的个人博客，记录生活的点滴。"
 keyword: "安庆, 安庆的博客, 博客, 个人网站, 互联网, 后端, 内核"
 #url: "https://huangxuan.me"              # your host, for absolute URL
@@ -13,10 +13,10 @@ future: true
 
 # SNS settings
 RSS: false
-weibo_username:     huxpro
-zhihu_username:     huxpro
-github_username:    huxpro
-twitter_username:   huxpro
+#weibo_username:     huxpro
+#zhihu_username:     huxpro
+github_username:    chenanqing1985
+#twitter_username:   huxpro
 #facebook_username:  huxpro
 #linkedin_username:  firstname-lastname-idxxxx
 
@@ -59,7 +59,7 @@ kramdown:
 
 
 # Disqus settings
-disqus_username: hux
+disqus_username: caq
 
 # Netease settings
 netease_comment: false
