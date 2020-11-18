@@ -194,7 +194,7 @@ PID: 355608  TASK: ffff8f4aea3a8000  CPU: 26  COMMAND: "custom_exporter"
 crash> 
 crash> 
 ```
-    整体上看，26号上的cpu也正在进行numa的balance动作，简单展开介绍一下numa在balance下的动作
+整体上看，26号上的cpu也正在进行numa的balance动作，简单展开介绍一下numa在balance下的动作
 在 task_tick_fair 函数中：
 ```
 static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
@@ -212,12 +212,12 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
 
 	update_rq_runnable_avg(rq, 1);
 }
+```
 而 task_tick_numa 会根据扫描情况，将当前进程需要numa_balance的时候推送到一个work中。
 通过调用change_prot_numa将所有映射到VMA的PTE页表项该为PAGE_NONE，使得下次进程访问页表的时候
 产生缺页中断，handle_pte_fault 函数 会由于缺页中断的机会来根据numa 选择更好的node，具体不再展开。
 
-```
-   在 26号cpu的调用链中，stop_two_cpus-->cpu_stop_queue_two_works-->__cpu_stop_queue_work 函数
+在 26号cpu的调用链中，stop_two_cpus-->cpu_stop_queue_two_works-->__cpu_stop_queue_work 函数
 由于 cpu_stop_queue_two_works 被内联了，但是 cpu_stop_queue_two_works 调用 __cpu_stop_queue_work
 有两次，所以需要根据压栈地址判断当前是哪次调用出现问题。
 
