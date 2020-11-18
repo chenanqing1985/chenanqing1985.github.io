@@ -135,8 +135,9 @@ COMMAND: "custom_exporter"
 ```
 
 下面，就需要分析，为什么位于26号cpu的进程 custom_exporter 会长时间拿着 ffff8f1afdf55fe8 
-```
+
 我们来分析26号cpu的堆栈：
+
 ```
 crash> bt -f 355608
 PID: 355608  TASK: ffff8f4aea3a8000  CPU: 26  COMMAND: "custom_exporter"
@@ -192,7 +193,6 @@ PID: 355608  TASK: ffff8f4aea3a8000  CPU: 26  COMMAND: "custom_exporter"
 .....
 crash> 
 crash> 
-
 ```
     整体上看，26号上的cpu也正在进行numa的balance动作，简单展开介绍一下numa在balance下的动作
 在 task_tick_fair 函数中：
