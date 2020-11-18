@@ -422,17 +422,21 @@ fffff26501daee40 3076bb9000                0        0  0 6fffff00008000 tail
 ```
 #### 三、故障复现
 1.由于这个是一个race condition导致的hardlock，逻辑上分析已经没有问题了，就没有花时间去复现，
-该环境运行一个dpdk的node，不过为了性能设置了只在一个numa节点上，可以频繁造成numa的不均衡，所以要复现的同学，
+该环境运行一个dpdk的node，不过为了性能设置了只在一个numa节点上运行，可以频繁造成numa的不均衡，所以要复现的同学，
 可以参考单numa节点上运行dpdk来复现，会概率大一些。
 
 #### 四、故障规避或解决
 
 我们的解决方案是：
 
-1.关闭numa的自动balance。
-2.手工合入 linux社区的 0b26351b910f 补丁。
-3.这个补丁在centos的 3.10.0-974.el7 合入了 
-- [kernel] stop_machine, sched: Fix migrate_swap() vs. active_balance() deadlock (Phil Auld) [1557061]
+1.关闭numa的自动balance.
+
+2.手工合入 linux社区的 0b26351b910f 补丁
+
+3.这个补丁在centos的 3.10.0-974.el7 合入了:
+
+  [kernel] stop_machine, sched: Fix migrate_swap() vs. active_balance() deadlock (Phil Auld) [1557061]
+
 同时红帽又反向合入到了3.10.0-957.27.2.el7.x86_64，所以把centos内核升级到 3.10.0-957.27.2.el7.x86_64也是
 一种选择。
 
